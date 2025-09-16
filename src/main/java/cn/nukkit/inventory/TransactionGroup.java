@@ -18,7 +18,7 @@ public interface TransactionGroup {
 
     boolean canExecute();
 
-    boolean execute();
+    boolean execute(boolean force);
 
     boolean hasExecuted();
 }

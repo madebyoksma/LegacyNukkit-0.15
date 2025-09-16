@@ -4,7 +4,6 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.inventory.InventoryTransactionEvent;
 import cn.nukkit.item.Item;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -116,9 +115,13 @@ public class SimpleTransactionGroup implements TransactionGroup {
         return this.matchItems(needItems, haveItems) && haveItems.isEmpty() && needItems.isEmpty() && !this.transactions.isEmpty();
     }
 
-    @Override
     public boolean execute() {
-        if (this.hasExecuted || !this.canExecute()) {
+        return execute(false);
+    }
+
+    @Override
+    public boolean execute(boolean force) {
+        if (this.hasExecuted || (!force && !this.canExecute())) {
             return false;
         }
 
