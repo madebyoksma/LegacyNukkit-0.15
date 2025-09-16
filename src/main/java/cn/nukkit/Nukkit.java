@@ -25,7 +25,7 @@ public class Nukkit {
 
     public final static String VERSION = "1.0dev";
     public final static String API_VERSION = "1.0.0";
-    public final static String CODENAME = "蘋果(Apple)派(Pie)";
+    public final static String CODENAME = "Nietzsche";
     public final static String MINECRAFT_VERSION = "v0.15.10 alpha";
     public final static String MINECRAFT_VERSION_NETWORK = "0.15.10";
 
@@ -41,10 +41,8 @@ public class Nukkit {
 
         //Shorter title for windows 8/10/11 and server 2012/2016/2019
         String osName = System.getProperty("os.name").toLowerCase();
-        if (osName.contains("windows")) {
-            if (osName.contains("windows 8") || osName.contains("2012") || osName.contains("windows 10") || osName.contains("2016") || osName.contains("windows 11") || osName.contains("2019")) {
-                shortTitle = true;
-            }
+        if (osName.contains("windows 8") || osName.contains("2012") || osName.contains("windows 10") || osName.contains("2016") || osName.contains("windows 11") || osName.contains("2019")) {
+            shortTitle = true;
         }
 
         //启动参数
