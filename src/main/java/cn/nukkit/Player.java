@@ -75,8 +75,6 @@ import java.nio.ByteOrder;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.azul.crs.client.Inventory;
-
 //import cn.nukkit.entity.Item;
 
 
@@ -1763,18 +1761,22 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     LoginPacket loginPacket = (LoginPacket) packet;
 
                     String message;
-                    if (this.server.getPropertyBoolean("ln-protocol-support") == false) { // if protocol support is disabled
-                        if (loginPacket.protocol != ProtocolInfo.CURRENT_PROTOCOL) {      // only allow server version (0.15.10, pvn 84)
-                            message = "disconnectionScreen.unsupportedClient";
-                            this.close("", message, false);
-                            break;
+                    if (loginPacket.getProtocol() != ProtocolInfo.CURRENT_PROTOCOL) {
+                        if (loginPacket.getProtocol() < ProtocolInfo.CURRENT_PROTOCOL) {
+                            message = "disconnectionScreen.outdatedClient";
+
+                            PlayStatusPacket pk = new PlayStatusPacket();
+                            pk.status = PlayStatusPacket.LOGIN_FAILED_CLIENT;
+                            this.directDataPacket(pk);
+                        } else {
+                            message = "disconnectionScreen.outdatedServer";
+
+                            PlayStatusPacket pk = new PlayStatusPacket();
+                            pk.status = PlayStatusPacket.LOGIN_FAILED_SERVER;
+                            this.directDataPacket(pk);
                         }
-                    } else {
-                        if (!ProtocolInfo.SUPPORTED_PROTOCOLS.contains(loginPacket.getProtocol())) { // if protocol server is enabled
-                            message = "disconnectionScreen.unsupportedClient";                       // allow 0.15.10, 0.14.3 and 0.14.2 (pvns 84, 70, 60)
-                            this.close("", message, false);
-                            break;
-                        }
+                        this.close("", message, false);
+                        break;
                     }
 
                     this.username = TextFormat.clean(loginPacket.username);

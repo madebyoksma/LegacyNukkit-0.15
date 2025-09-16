@@ -67,6 +67,7 @@ import cn.nukkit.scheduler.FileWriteTask;
 import cn.nukkit.scheduler.ServerScheduler;
 import cn.nukkit.timings.Timings;
 import cn.nukkit.utils.*;
+
 import java.io.*;
 import java.nio.ByteOrder;
 import java.util.*;
@@ -271,7 +272,6 @@ public class Server {
                 put("enable-rcon", false);
                 put("rcon.password", Base64.getEncoder().encodeToString(UUID.randomUUID().toString().replace("-", "").getBytes()).substring(3, 13));
                 put("auto-save", true);
-                put("ln-protocol-support", false);
             }
         });
 
