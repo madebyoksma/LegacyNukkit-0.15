@@ -75,6 +75,11 @@ import java.nio.ByteOrder;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.azul.crs.client.Inventory;
+
+//import cn.nukkit.entity.Item;
+
+
 /**
  * author: MagicDroidX & Box
  * Nukkit Project
