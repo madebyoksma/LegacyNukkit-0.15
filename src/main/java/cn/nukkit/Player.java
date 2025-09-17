@@ -2346,6 +2346,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             } else {
                                 this.setSprinting(true);
                             }
+                            if (this.isSprinting() == false && this.getFoodData().getLevel() <= 6) {
+                                this.setSprinting(false);
+                                this.kick("Invalid movement");
+                            }
                             break packetswitch;
 
                         case PlayerActionPacket.ACTION_STOP_SPRINT:

@@ -53,9 +53,10 @@ public class PlayerFood {
         }
 
         if (foodLevel <= 6 && !(this.getLevel() <= 6)) {
-            if (this.getPlayer().isSprinting()) {
+            /*if (this.getPlayer().isSprinting()) {
                 this.getPlayer().setSprinting(false);
-            }
+            }*/
+            this.getPlayer().setSprinting(false);
         }
 
         PlayerFoodLevelChangeEvent ev = new PlayerFoodLevelChangeEvent(this.getPlayer(), foodLevel, saturationLevel);
