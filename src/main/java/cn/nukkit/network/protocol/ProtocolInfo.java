@@ -12,6 +12,8 @@ public interface ProtocolInfo {
     byte CURRENT_PROTOCOL = (byte) 84;
 
     byte[] ALLOWED_PROTOCOLS = new byte[]{
+        (byte) 91, // 0.16.0-0.17.0, NOT WORKING
+        (byte) 90, // 0.15.90-0.16.0 alpha build 5, NOT WORKING
         (byte) 84, // 0.15.10
         (byte) 83, // 0.15.9
         (byte) 82, // 0.15.4-0.15.8

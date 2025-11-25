@@ -1795,7 +1795,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                     String message;
 
-                    // hacky attempt at allowing pvn 83 and 82 clients to connect
+                    // hacky attempt at allowing pvn 81-84 clients to connect
                     // shouldn't cause issues because nothing actually changed. mojang, tf?
 
                     byte protocol = (byte) loginPacket.getProtocol();
@@ -1840,6 +1840,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     }*/
 
                     this.username = TextFormat.clean(loginPacket.username);
+                    this.kick(this.username); // debug
                     this.displayName = this.username;
                     this.iusername = this.username.toLowerCase();
                     this.setDataProperty(new StringEntityData(DATA_NAMETAG, this.username), false);
