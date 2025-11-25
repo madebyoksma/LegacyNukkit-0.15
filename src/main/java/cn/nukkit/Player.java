@@ -1794,8 +1794,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     LoginPacket loginPacket = (LoginPacket) packet;
 
                     String message;
-                    if (loginPacket.getProtocol() != ProtocolInfo.CURRENT_PROTOCOL) {
-                        if (loginPacket.getProtocol() < ProtocolInfo.CURRENT_PROTOCOL) {
+
+                    // hacky attempt at allowing pvn 83 and 82 clients to connect
+                    // shouldn't cause issues because nothing actually changed. mojang, tf?
+
+                    byte protocol = (byte) loginPacket.getProtocol();
+
+                    if (!isAllowedProtocol(protocol)) {
+                        byte min = ProtocolInfo.ALLOWED_PROTOCOLS[ProtocolInfo.ALLOWED_PROTOCOLS.length - 1];
+                        //byte max = ProtocolInfo.ALLOWED_PROTOCOLS[0];
+
+                        if (protocol < min) {
                             message = "disconnectionScreen.outdatedClient";
 
                             PlayStatusPacket pk = new PlayStatusPacket();
@@ -1811,6 +1820,24 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         this.close("", message, false);
                         break;
                     }
+
+                    /*if (protocol != ProtocolInfo.CURRENT_PROTOCOL) {
+                        if (protocol < ProtocolInfo.CURRENT_PROTOCOL) {
+                            message = "disconnectionScreen.outdatedClient";
+
+                            PlayStatusPacket pk = new PlayStatusPacket();
+                            pk.status = PlayStatusPacket.LOGIN_FAILED_CLIENT;
+                            this.directDataPacket(pk);
+                        } else {
+                            message = "disconnectionScreen.outdatedServer";
+
+                            PlayStatusPacket pk = new PlayStatusPacket();
+                            pk.status = PlayStatusPacket.LOGIN_FAILED_SERVER;
+                            this.directDataPacket(pk);
+                        }
+                        this.close("", message, false);
+                        break;
+                    }*/
 
                     this.username = TextFormat.clean(loginPacket.username);
                     this.displayName = this.username;
@@ -4153,6 +4180,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     public synchronized Locale getLocale() {
         return this.locale.get();
+    }
+
+    private boolean isAllowedProtocol(byte protocol) {
+        for (byte p : ProtocolInfo.ALLOWED_PROTOCOLS) {
+            if (p == protocol) return true;
+        }
+        return false;
     }
 
     @Override
