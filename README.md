@@ -1,6 +1,6 @@
-# After careful consideration, I have made the decision to archive the 0.15.x 
-# version of LegacyNukkit in order to focus on 0.14.x. The new version can be 
-# found here:
+## After careful consideration, I have made the decision to archive the 0.15.x 
+## version of LegacyNukkit in order to focus on 0.14.x. The new version can be 
+## found here:
 # https://github.dev/madebyoksma/LegacyNukkit/
 
 LegacyNukkit
